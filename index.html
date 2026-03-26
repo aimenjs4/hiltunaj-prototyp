@@ -1,0 +1,1569 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Hil Tunaj GmbH – Gipser-, Fassaden- und Innenausbauarbeiten in der Region Basel. Qualität durch Erfahrung." />
+  <title>Hil Tunaj GmbH – Gipser & Fassaden</title>
+
+  <style>
+    /* =============================================
+       CSS CUSTOM PROPERTIES
+    ============================================= */
+    :root {
+      --dark:       #0D0D0D;
+      --light:      #F5F5F5;
+      --white:      #FFFFFF;
+      --mid:        #6B6B6B;
+      --border:     #D8D8D8;
+      --accent:     #A89070;   /* subtle warm stone */
+      --accent-lt:  #EDE5D8;
+
+      --font:       'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+      --space-xs:   0.5rem;
+      --space-sm:   1rem;
+      --space-md:   2rem;
+      --space-lg:   4rem;
+      --space-xl:   7rem;
+
+      --max-w:      1160px;
+      --nav-h:      68px;
+
+      --transition: 0.22s ease;
+    }
+
+    /* =============================================
+       RESET & BASE
+    ============================================= */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      font-family: var(--font);
+      background: var(--white);
+      color: var(--dark);
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    ul { list-style: none; }
+
+    /* =============================================
+       UTILITY
+    ============================================= */
+    .container {
+      width: 100%;
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 var(--space-md);
+    }
+
+    .section {
+      padding: var(--space-xl) 0;
+    }
+
+    .section--alt {
+      background: var(--light);
+    }
+
+    .section-label {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 600;
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+      color: var(--dark);
+      margin-bottom: 1.5rem;
+    }
+
+    .section-text {
+      font-size: 0.975rem;
+      color: var(--mid);
+      max-width: 560px;
+      line-height: 1.75;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.85rem 2rem;
+      font-family: var(--font);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      transition: background var(--transition), color var(--transition);
+    }
+
+    .btn--dark {
+      background: var(--dark);
+      color: var(--white);
+    }
+    .btn--dark:hover { background: #2a2a2a; }
+
+    .btn--outline {
+      background: transparent;
+      color: var(--dark);
+      border: 1.5px solid var(--dark);
+    }
+    .btn--outline:hover {
+      background: var(--dark);
+      color: var(--white);
+    }
+
+    /* =============================================
+       NAVIGATION
+    ============================================= */
+    #nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      background: rgba(255,255,255,0.97);
+      border-bottom: 1px solid var(--border);
+      z-index: 1000;
+      backdrop-filter: blur(6px);
+      transition: box-shadow var(--transition);
+    }
+
+    #nav.scrolled {
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 100%;
+    }
+
+    .nav-logo {
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+    }
+
+    .nav-logo__name {
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--dark);
+    }
+
+    .nav-logo__sub {
+      font-size: 0.65rem;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-top: 2px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.2rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--mid);
+      transition: color var(--transition);
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px; left: 0;
+      width: 0; height: 1px;
+      background: var(--accent);
+      transition: width var(--transition);
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--dark); }
+
+    .nav-links a:hover::after,
+    .nav-links a.active::after { width: 100%; }
+
+    /* Hamburger */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+      background: none;
+      border: none;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 24px; height: 1.5px;
+      background: var(--dark);
+      transition: var(--transition);
+    }
+    .nav-hamburger.open span:nth-child(1) {
+      transform: translateY(6.5px) rotate(45deg);
+    }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) {
+      transform: translateY(-6.5px) rotate(-45deg);
+    }
+
+    /* Mobile menu */
+    .nav-mobile {
+      display: none;
+      position: fixed;
+      top: var(--nav-h); left: 0; right: 0;
+      background: var(--white);
+      border-top: 1px solid var(--border);
+      padding: var(--space-md);
+      z-index: 999;
+    }
+    .nav-mobile.open { display: block; }
+    .nav-mobile a {
+      display: block;
+      padding: 0.8rem 0;
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--dark);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-mobile a:last-child { border-bottom: none; }
+
+    /* =============================================
+       HERO
+    ============================================= */
+    #hero {
+      position: relative;
+      height: 100vh;
+      min-height: 560px;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      background: var(--dark);
+      padding-top: var(--nav-h);
+    }
+
+    /* Hero Hintergrundbild */
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: #0D0D0D; /* Fallback wenn kein Bild gesetzt */
+    }
+
+    /* Hintergrundbild-Tag im Hero */
+    .hero-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      opacity: 0.45; /* Abdunklung damit Text lesbar bleibt — nach Bedarf anpassen */
+      display: block;
+    }
+
+    /* Dezente Abdunklung über dem Hintergrundbild */
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(13,13,13,0.55); /* Stärke der Abdunklung anpassbar */
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 640px;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 28px; height: 1px;
+      background: var(--accent);
+    }
+
+    .hero-headline {
+      font-size: clamp(2.2rem, 5.5vw, 3.6rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      color: var(--white);
+      margin-bottom: 1.4rem;
+    }
+
+    .hero-subtext {
+      font-size: 0.975rem;
+      color: rgba(255,255,255,0.52);
+      line-height: 1.75;
+      margin-bottom: 2.2rem;
+      max-width: 440px;
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: rgba(255,255,255,0.3);
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .hero-scroll__line {
+      width: 1px;
+      height: 36px;
+      background: rgba(255,255,255,0.2);
+      animation: scrollLine 1.8s ease-in-out infinite;
+    }
+
+    @keyframes scrollLine {
+      0%   { transform: scaleY(1); transform-origin: top; }
+      50%  { transform: scaleY(0); transform-origin: top; }
+      51%  { transform-origin: bottom; }
+      100% { transform: scaleY(1); transform-origin: bottom; }
+    }
+
+    /* =============================================
+       ÜBER UNS
+    ============================================= */
+    .ueber-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-lg);
+      align-items: center;
+    }
+
+    /* Wrapper adds the offset decorative frame behind the photo */
+    .ueber-image-wrap {
+      position: relative;
+      padding: 0 0 2rem 2rem;
+    }
+
+    /* Decorative frame offset behind and below */
+    .ueber-image-wrap::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: calc(100% - 2rem);
+      height: calc(100% - 2rem);
+      border: 2px solid var(--accent);
+      z-index: 0;
+    }
+
+    .ueber-image {
+      position: relative;
+      aspect-ratio: 4/3;
+      background: var(--border);
+      overflow: hidden;
+      z-index: 1;
+      box-shadow:
+        0 8px 28px rgba(0,0,0,0.18),
+        0 2px 8px rgba(0,0,0,0.10);
+    }
+
+    .ueber-image-inner {
+      width: 100%;
+      height: 100%;
+      background: #C8BDB0;
+      display: flex;
+      align-items: flex-end;
+      padding: 1.2rem 1.4rem;
+      position: relative;
+    }
+
+    .ueber-image-inner img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    /* Subtle gradient at bottom so caption stays readable */
+    .ueber-image-inner::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 55%;
+      background: linear-gradient(to top, rgba(0,0,0,0.52) 0%, transparent 100%);
+      pointer-events: none;
+    }
+
+    .ueber-image-caption {
+      position: relative;
+      z-index: 2;
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.82);
+      font-weight: 500;
+    }
+
+    .ueber-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+
+    .stat {
+      padding: 1.4rem;
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+    }
+
+    .stat__number {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--dark);
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+
+    .stat__label {
+      font-size: 0.8rem;
+      color: var(--mid);
+      letter-spacing: 0.04em;
+    }
+
+    /* =============================================
+       LEISTUNGEN
+    ============================================= */
+    .leistungen-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      border: 1px solid var(--border);
+    }
+
+    .leistung-card {
+      padding: 2.2rem 2rem;
+      border-right: 1px solid var(--border);
+      transition: background var(--transition);
+      position: relative;
+    }
+
+    .leistung-card:last-child { border-right: none; }
+
+    .leistung-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 3px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform var(--transition);
+    }
+
+    .leistung-card:hover::before { transform: scaleX(1); }
+    .leistung-card:hover { background: var(--light); }
+
+    .leistung-number {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+      margin-bottom: 1.2rem;
+    }
+
+    .leistung-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 0.8rem;
+      letter-spacing: -0.01em;
+    }
+
+    .leistung-text {
+      font-size: 0.85rem;
+      color: var(--mid);
+      line-height: 1.7;
+    }
+
+    /* =============================================
+       REFERENZEN
+    ============================================= */
+    /* HIER ECHTE PROJEKTBILDER ERSETZEN */
+    .ref-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .ref-item {
+      position: relative;
+      aspect-ratio: 4/3;
+      overflow: hidden;
+      cursor: pointer;
+      box-shadow:
+        0 4px 16px rgba(0,0,0,0.13),
+        0 1px 4px rgba(0,0,0,0.08);
+      transition: box-shadow 0.35s ease, transform 0.35s ease;
+    }
+
+    .ref-item:hover {
+      box-shadow:
+        0 12px 36px rgba(0,0,0,0.22),
+        0 3px 10px rgba(0,0,0,0.12);
+      transform: translateY(-3px);
+    }
+
+    /* Placeholder-Farbe wenn noch kein Bild gesetzt */
+    .ref-item-inner {
+      width: 100%; height: 100%;
+      transition: transform 0.45s ease;
+      background: #C0B8B0;
+    }
+
+    /* Bild-Tag im Referenzen-Raster */
+    .ref-item-inner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+
+    .ref-item:hover .ref-item-inner { transform: scale(1.06); }
+
+    /* Permanent subtle bottom gradient so label is always hinted */
+    .ref-item-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(13,13,13,0.62) 0%,
+        rgba(13,13,13,0.0) 45%
+      );
+      display: flex;
+      align-items: flex-end;
+      padding: 1rem 1.1rem;
+      transition: background 0.35s ease;
+    }
+
+    .ref-item:hover .ref-item-overlay {
+      background: linear-gradient(
+        to top,
+        rgba(13,13,13,0.80) 0%,
+        rgba(13,13,13,0.18) 60%
+      );
+    }
+
+    .ref-item-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--white);
+      opacity: 0.75;
+      transform: translateY(3px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .ref-item:hover .ref-item-label {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* =============================================
+       FLYER
+    ============================================= */
+    .flyer-wrapper {
+      display: flex;
+      gap: var(--space-lg);
+      align-items: flex-start;
+    }
+
+    .flyer-preview {
+      /* HIER FLYER (PDF ODER BILD) EINBINDEN */
+      flex: 0 0 320px;
+      aspect-ratio: 0.707; /* A4 ratio */
+      background: var(--white);
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .flyer-header {
+      background: var(--dark);
+      color: var(--white);
+      padding: 1.8rem 1.5rem 1.4rem;
+    }
+
+    .flyer-header__logo {
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    .flyer-header__sub {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      margin-top: 3px;
+    }
+
+    .flyer-body {
+      flex: 1;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .flyer-title-block {
+      border-left: 3px solid var(--accent);
+      padding-left: 0.8rem;
+    }
+
+    .flyer-title-block h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+
+    .flyer-title-block p {
+      font-size: 0.7rem;
+      color: var(--mid);
+      margin-top: 3px;
+    }
+
+    .flyer-services {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      margin-top: 0.5rem;
+    }
+
+    .flyer-service-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.72rem;
+      color: var(--dark);
+    }
+
+    .flyer-service-item::before {
+      content: '';
+      display: block;
+      width: 12px; height: 1px;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .flyer-contact-block {
+      margin-top: auto;
+      padding: 1rem;
+      background: var(--light);
+      font-size: 0.65rem;
+      color: var(--mid);
+      line-height: 1.6;
+    }
+
+    .flyer-contact-block strong {
+      color: var(--dark);
+      display: block;
+      font-size: 0.7rem;
+      margin-bottom: 4px;
+    }
+
+    .flyer-info {
+      flex: 1;
+      padding-top: 0.5rem;
+    }
+
+    .flyer-info p {
+      font-size: 0.93rem;
+      color: var(--mid);
+      line-height: 1.75;
+      margin-bottom: 1.5rem;
+    }
+
+    /* =============================================
+       KONTAKT
+    ============================================= */
+    .kontakt-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-lg);
+    }
+
+    .kontakt-info-block {
+      margin-bottom: 2rem;
+    }
+
+    .kontakt-info-block h3 {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.8rem;
+    }
+
+    .kontakt-info-block p,
+    .kontakt-info-block a {
+      font-size: 0.93rem;
+      color: var(--mid);
+      line-height: 1.7;
+      display: block;
+    }
+
+    .kontakt-info-block a:hover { color: var(--dark); }
+
+    .kontakt-map {
+      width: 100%;
+      aspect-ratio: 16/9;
+      border: 0;
+      filter: grayscale(0.3);
+    }
+
+    /* Contact form */
+    .form-group {
+      margin-bottom: 1.2rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--dark);
+      margin-bottom: 0.5rem;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      font-family: var(--font);
+      font-size: 0.9rem;
+      color: var(--dark);
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 0;
+      outline: none;
+      transition: border-color var(--transition);
+      -webkit-appearance: none;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: var(--dark);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 130px;
+    }
+
+    .form-note {
+      font-size: 0.78rem;
+      color: var(--mid);
+      margin-top: 0.6rem;
+    }
+
+    .form-success {
+      display: none;
+      background: var(--accent-lt);
+      border: 1px solid var(--accent);
+      padding: 1rem 1.2rem;
+      font-size: 0.88rem;
+      color: var(--dark);
+      margin-top: 1rem;
+    }
+
+    /* =============================================
+       FOOTER
+    ============================================= */
+    #footer {
+      background: var(--dark);
+      color: rgba(255,255,255,0.55);
+      padding: var(--space-lg) 0 var(--space-md);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: var(--space-lg);
+      padding-bottom: var(--space-md);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      margin-bottom: var(--space-md);
+    }
+
+    .footer-brand h2 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: -0.01em;
+      margin-bottom: 0.3rem;
+    }
+
+    .footer-brand p {
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 1.2rem;
+    }
+
+    .footer-brand .footer-desc {
+      font-size: 0.85rem;
+      line-height: 1.7;
+      letter-spacing: 0;
+      text-transform: none;
+      color: rgba(255,255,255,0.45);
+    }
+
+    .footer-col h4 {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 1rem;
+    }
+
+    .footer-col ul { display: flex; flex-direction: column; gap: 0.6rem; }
+
+    .footer-col ul li a {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.5);
+      transition: color var(--transition);
+    }
+
+    .footer-col ul li a:hover { color: var(--white); }
+
+    .footer-col address {
+      font-style: normal;
+      font-size: 0.85rem;
+      line-height: 1.8;
+      color: rgba(255,255,255,0.5);
+    }
+
+    .footer-col address a {
+      color: rgba(255,255,255,0.5);
+      transition: color var(--transition);
+    }
+
+    .footer-col address a:hover { color: var(--white); }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.25);
+    }
+
+    /* =============================================
+       DIVIDER LINE ELEMENT
+    ============================================= */
+    .divider-line {
+      width: 40px; height: 2px;
+      background: var(--accent);
+      margin-bottom: 1.5rem;
+    }
+
+    /* =============================================
+       RESPONSIVE
+    ============================================= */
+    @media (max-width: 1024px) {
+      .leistungen-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .leistung-card:nth-child(2) { border-right: none; }
+      .leistung-card:nth-child(1),
+      .leistung-card:nth-child(2) {
+        border-bottom: 1px solid var(--border);
+      }
+    }
+
+    @media (max-width: 900px) {
+      .ueber-grid { grid-template-columns: 1fr; }
+      .ueber-image-wrap { max-width: 520px; padding: 0 0 1.5rem 1.5rem; }
+      .ref-grid { grid-template-columns: 1fr 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .footer-brand { grid-column: 1 / -1; }
+      .flyer-wrapper { flex-direction: column; }
+      .flyer-preview { flex: none; width: 100%; max-width: 320px; }
+    }
+
+    @media (max-width: 720px) {
+      :root { --space-xl: 4.5rem; --space-lg: 2.5rem; }
+
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+
+      .kontakt-grid { grid-template-columns: 1fr; }
+      .leistungen-grid { grid-template-columns: 1fr; }
+      .leistung-card { border-right: none; border-bottom: 1px solid var(--border); }
+      .leistung-card:last-child { border-bottom: none; }
+      .ref-grid { grid-template-columns: 1fr 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+
+    @media (max-width: 480px) {
+      .ref-grid { grid-template-columns: 1fr; }
+      .ueber-stats { grid-template-columns: 1fr 1fr; }
+      .hero-headline { font-size: 2rem; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ============================================================
+       NAVIGATION
+  ============================================================ -->
+  <header id="nav" role="banner">
+    <div class="container nav-inner">
+
+      <a href="#hero" class="nav-logo" aria-label="Hil Tunaj GmbH Startseite">
+        <span class="nav-logo__name">Hil Tunaj GmbH</span>
+        <span class="nav-logo__sub">Gipser · Fassaden · Innenausbau</span>
+      </a>
+
+      <nav aria-label="Hauptnavigation">
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#hero"       class="active">Startseite</a></li>
+          <li><a href="#ueber">Über uns</a></li>
+          <li><a href="#leistungen">Leistungen</a></li>
+          <li><a href="#referenzen">Referenzen</a></li>
+          <li><a href="#flyer">Flyer</a></li>
+          <li><a href="#kontakt">Kontakt</a></li>
+        </ul>
+      </nav>
+
+      <button class="nav-hamburger" id="hamburger" aria-label="Menü öffnen" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile menu -->
+  <nav class="nav-mobile" id="mobileMenu" aria-label="Mobile Navigation">
+    <a href="#hero"       onclick="closeMobile()">Startseite</a>
+    <a href="#ueber"      onclick="closeMobile()">Über uns</a>
+    <a href="#leistungen" onclick="closeMobile()">Leistungen</a>
+    <a href="#referenzen" onclick="closeMobile()">Referenzen</a>
+    <a href="#flyer"      onclick="closeMobile()">Flyer</a>
+    <a href="#kontakt"    onclick="closeMobile()">Kontakt</a>
+  </nav>
+
+
+  <!-- ============================================================
+       HERO
+  ============================================================ -->
+  <section id="hero" aria-label="Einstieg">
+
+    <!--
+    -->
+    <div class="hero-bg" aria-hidden="true">
+      <img src="bilder/hero.jpg" alt="Baustelle Hil Tunaj GmbH" />
+    </div>
+
+    <div class="container">
+      <div class="hero-content">
+        <span class="hero-eyebrow">Hölstein · Basel-Landschaft</span>
+
+        <h1 class="hero-headline">
+          Saubere Arbeit.<br>Präzise Ausführung.
+        </h1>
+
+        <p class="hero-subtext">
+          Gipser-, Fassaden- und Innenausbauarbeiten für private und gewerbliche Bauvorhaben.
+          Seit Jahren verlässlich in der Region Nordwestschweiz tätig.
+        </p>
+
+        <a href="#kontakt" class="btn btn--dark">Kontakt aufnehmen</a>
+      </div>
+    </div>
+
+    <div class="hero-scroll" aria-hidden="true">
+      <span class="hero-scroll__line"></span>
+      <span>Scrollen</span>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       ÜBER UNS
+  ============================================================ -->
+  <section id="ueber" class="section" aria-labelledby="ueber-title">
+    <div class="container">
+      <div class="ueber-grid">
+
+        <!--
+        -->
+        <div class="ueber-image-wrap">
+          <div class="ueber-image" role="img" aria-label="Handwerker bei der Arbeit">
+            <div class="ueber-image-inner">
+              <img src="bilder/ueber-uns.jpg" alt="Hil Tunaj GmbH – Handwerker bei der Arbeit" />
+              <span class="ueber-image-caption">Hil Tunaj GmbH · Hölstein</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="ueber-text">
+          <span class="section-label">Über uns</span>
+          <div class="divider-line"></div>
+          <h2 class="section-title" id="ueber-title">
+            Erfahrung und Verlässlichkeit<br>im Gipserhandwerk
+          </h2>
+          <p class="section-text">
+            Die Hil Tunaj GmbH ist ein handwerklicher Betrieb mit Sitz in Hölstein, Kanton Basel-Landschaft.
+            Wir führen Gipser-, Fassaden- und Innenausbauarbeiten für Privatkunden, Architekten und Generalunternehmer
+            in der Region Nordwestschweiz aus.
+          </p>
+          <p class="section-text" style="margin-top:1rem;">
+            Unser Anspruch ist einfach: saubere Ausführung, termingerechte Arbeit und direkte Kommunikation
+            mit dem Auftraggeber. Ohne Umwege.
+          </p>
+
+          <div class="ueber-stats" aria-label="Eckdaten">
+            <div class="stat">
+              <div class="stat__number">10+</div>
+              <div class="stat__label">Jahre Erfahrung</div>
+            </div>
+            <div class="stat">
+              <div class="stat__number">CHE</div>
+              <div class="stat__label">Eingetragene GmbH</div>
+            </div>
+            <div class="stat">
+              <div class="stat__number">NW-CH</div>
+              <div class="stat__label">Einsatzgebiet</div>
+            </div>
+            <div class="stat">
+              <div class="stat__number">100%</div>
+              <div class="stat__label">Eigene Ausführung</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       LEISTUNGEN
+  ============================================================ -->
+  <section id="leistungen" class="section section--alt" aria-labelledby="leistungen-title">
+    <div class="container">
+
+      <div style="margin-bottom: 3rem;">
+        <span class="section-label">Was wir anbieten</span>
+        <div class="divider-line"></div>
+        <h2 class="section-title" id="leistungen-title">Unsere Leistungen</h2>
+        <p class="section-text">
+          Wir übernehmen Arbeiten vom Rohbau bis zur Fertigstellung —
+          bei Neubauten ebenso wie bei Renovationen.
+        </p>
+      </div>
+
+      <div class="leistungen-grid">
+
+        <article class="leistung-card">
+          <div class="leistung-number">01</div>
+          <h3 class="leistung-title">Gipserarbeiten</h3>
+          <p class="leistung-text">
+            Innenputz, Aussenputz, Maschinenputz und Handputz. Wir verarbeiten alle gängigen
+            Putzsysteme und stimmen das Material auf den jeweiligen Untergrund ab.
+          </p>
+        </article>
+
+        <article class="leistung-card">
+          <div class="leistung-number">02</div>
+          <h3 class="leistung-title">Fassadenarbeiten</h3>
+          <p class="leistung-text">
+            Fassadensanierung, Wärmedämm-Verbundsysteme (WDVS), Verputz und Anstrich.
+            Fachgerechte Ausführung gemäss den geltenden Schweizer Normen.
+          </p>
+        </article>
+
+        <article class="leistung-card">
+          <div class="leistung-number">03</div>
+          <h3 class="leistung-title">Innenausbau</h3>
+          <p class="leistung-text">
+            Trockenbau, Deckenverkleidungen, Schallschutzwände, Leichtbautrennwände
+            und abgehängte Decken — sauber verarbeitet und termingerecht übergeben.
+          </p>
+        </article>
+
+        <article class="leistung-card">
+          <div class="leistung-number">04</div>
+          <h3 class="leistung-title">Renovationen</h3>
+          <p class="leistung-text">
+            Instandsetzung von Putzflächen, Sanierung nach Wasserschäden,
+            Untergrundvorbereitung und Nachinstandhaltungsarbeiten im Bestand.
+          </p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       REFERENZEN
+  ============================================================ -->
+  <section id="referenzen" class="section" aria-labelledby="referenzen-title">
+    <div class="container">
+
+      <div style="margin-bottom:2.5rem;">
+        <span class="section-label">Ausgeführte Projekte</span>
+        <div class="divider-line"></div>
+        <h2 class="section-title" id="referenzen-title">Referenzen</h2>
+        <p class="section-text">
+          Eine Auswahl abgeschlossener Projekte in der Region.
+        </p>
+      </div>
+
+      <!--
+      -->
+      <!-- HIER ECHTE PROJEKTBILDER ERSETZEN -->
+      <div class="ref-grid" role="list" aria-label="Projektbilder">
+
+        <div class="ref-item" role="listitem">
+          <div class="ref-item-inner">
+            <img src="bilder/ref-01.jpg" alt="Referenz: Fassadensanierung" />
+          </div>
+          <div class="ref-item-overlay">
+            <span class="ref-item-label">Fassadensanierung</span>
+          </div>
+        </div>
+
+        <div class="ref-item" role="listitem">
+          <div class="ref-item-inner">
+            <img src="bilder/ref-02.jpg" alt="Referenz: Innenausbau" />
+          </div>
+          <div class="ref-item-overlay">
+            <span class="ref-item-label">Innenausbau</span>
+          </div>
+        </div>
+
+        <div class="ref-item" role="listitem">
+          <div class="ref-item-inner">
+            <img src="bilder/ref-03.jpg" alt="Referenz: Gipserarbeiten" />
+          </div>
+          <div class="ref-item-overlay">
+            <span class="ref-item-label">Gipserarbeiten</span>
+          </div>
+        </div>
+
+        <div class="ref-item" role="listitem">
+          <div class="ref-item-inner">
+            <img src="bilder/ref-04.jpg" alt="Referenz: WDVS-Fassade" />
+          </div>
+          <div class="ref-item-overlay">
+            <span class="ref-item-label">WDVS-Fassade</span>
+          </div>
+        </div>
+
+        <div class="ref-item" role="listitem">
+          <div class="ref-item-inner">
+            <img src="bilder/ref-05.jpg" alt="Referenz: Renovation" />
+          </div>
+          <div class="ref-item-overlay">
+            <span class="ref-item-label">Renovation</span>
+          </div>
+        </div>
+
+        <div class="ref-item" role="listitem">
+          <div class="ref-item-inner">
+            <img src="bilder/ref-06.jpg" alt="Referenz: Trockenbau" />
+          </div>
+          <div class="ref-item-overlay">
+            <span class="ref-item-label">Trockenbau</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       FLYER
+  ============================================================ -->
+  <section id="flyer" class="section section--alt" aria-labelledby="flyer-title">
+    <div class="container">
+
+      <div style="margin-bottom:3rem;">
+        <span class="section-label">Download</span>
+        <div class="divider-line"></div>
+        <h2 class="section-title" id="flyer-title">Firmenflyer</h2>
+      </div>
+
+      <div class="flyer-wrapper">
+
+        <!--
+        -->
+        <!-- HIER FLYER (PDF ODER BILD) EINBINDEN -->
+        <div class="flyer-preview" role="img" aria-label="Vorschau Firmenflyer Hil Tunaj GmbH">
+          <div class="flyer-header">
+            <div class="flyer-header__logo">Hil Tunaj GmbH</div>
+            <div class="flyer-header__sub">Gipser · Fassaden · Innenausbau</div>
+          </div>
+          <div class="flyer-body">
+            <div class="flyer-title-block">
+              <h3>Ihr Gipserbetrieb<br>in der Region Basel</h3>
+              <p>Sauber ausgeführt — termingerecht geliefert</p>
+            </div>
+            <div class="flyer-services">
+              <div class="flyer-service-item">Gipserarbeiten</div>
+              <div class="flyer-service-item">Fassadenarbeiten</div>
+              <div class="flyer-service-item">Innenausbau</div>
+              <div class="flyer-service-item">Renovationen</div>
+            </div>
+            <div class="flyer-contact-block">
+              <strong>Hil Tunaj GmbH</strong>
+              Dammstrasse 12A · 4434 Hölstein<br>
+              +41 61 923 00 00<br>
+              <a href="mailto:info@hiltunaj.ch">info@hiltunaj.ch</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="flyer-info">
+          <p>
+            Unser Firmenflyer enthält eine kompakte Übersicht unserer Leistungen,
+            Kontaktdaten und Einsatzgebiete — geeignet zur Weitergabe an Auftraggeber
+            oder als Beilage zu Offerten.
+          </p>
+          <p>
+            Den Flyer können Sie als PDF herunterladen und ausdrucken
+            oder digital weiterleiten.
+          </p>
+          <a href="dateien/flyer.pdf" class="btn btn--outline" download aria-label="Firmenflyer herunterladen">
+            Flyer herunterladen (PDF)
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       KONTAKT
+  ============================================================ -->
+  <section id="kontakt" class="section" aria-labelledby="kontakt-title">
+    <div class="container">
+
+      <div style="margin-bottom:3rem;">
+        <span class="section-label">Anfrage &amp; Kontakt</span>
+        <div class="divider-line"></div>
+        <h2 class="section-title" id="kontakt-title">Nehmen Sie Kontakt auf</h2>
+        <p class="section-text">
+          Für Anfragen, Offertanfragen oder Fragen zu unseren Leistungen stehen wir Ihnen
+          gerne zur Verfügung. Wir antworten in der Regel innerhalb eines Werktages.
+        </p>
+      </div>
+
+      <div class="kontakt-grid">
+
+        <!-- Kontaktdaten & Karte -->
+        <div>
+          <div class="kontakt-info-block">
+            <h3>Adresse</h3>
+            <address>
+              Hil Tunaj GmbH<br>
+              Dammstrasse 12A<br>
+              4434 Hölstein<br>
+              Schweiz
+            </address>
+          </div>
+
+          <div class="kontakt-info-block">
+            <h3>Telefon</h3>
+            <a href="tel:+41619230000">+41 61 923 00 00</a>
+          </div>
+
+          <div class="kontakt-info-block">
+            <h3>E-Mail</h3>
+            <a href="mailto:info@hiltunaj.ch">info@hiltunaj.ch</a>
+          </div>
+
+          <div class="kontakt-info-block">
+            <h3>Einsatzgebiet</h3>
+            <p>Region Nordwestschweiz · Kanton Basel-Landschaft · Basel-Stadt</p>
+          </div>
+
+          <iframe
+            class="kontakt-map"
+            title="Standort Hil Tunaj GmbH, Dammstrasse 12A, 4434 Hölstein"
+            loading="lazy"
+            allowfullscreen
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2688.0!2d7.7900!3d47.4300!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4791b5a6b1bc5a01%3A0x1!2sDammstrasse%2012A%2C%204434%20H%C3%B6lstein!5e0!3m2!1sde!2sch!4v1700000000000!5m2!1sde!2sch">
+          </iframe>
+        </div>
+
+        <!-- Kontaktformular -->
+        <div>
+          <form id="contactForm" novalidate aria-label="Kontaktformular">
+
+            <div class="form-group">
+              <label for="name">Name <span aria-hidden="true">*</span></label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                autocomplete="name"
+                placeholder="Ihr Name"
+                required
+                aria-required="true"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="email">E-Mail <span aria-hidden="true">*</span></label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                autocomplete="email"
+                placeholder="ihre@email.ch"
+                required
+                aria-required="true"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="telefon">Telefon</label>
+              <input
+                type="tel"
+                id="telefon"
+                name="telefon"
+                autocomplete="tel"
+                placeholder="+41 ..."
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="nachricht">Nachricht <span aria-hidden="true">*</span></label>
+              <textarea
+                id="nachricht"
+                name="nachricht"
+                placeholder="Beschreiben Sie Ihr Anliegen kurz..."
+                required
+                aria-required="true"
+              ></textarea>
+            </div>
+
+            <button type="submit" class="btn btn--dark">Nachricht senden</button>
+            <p class="form-note">* Pflichtfelder</p>
+
+            <div class="form-success" id="formSuccess" role="alert" aria-live="polite">
+              Vielen Dank für Ihre Nachricht. Wir melden uns bei Ihnen.
+            </div>
+
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <footer id="footer" role="contentinfo">
+    <div class="container">
+
+      <div class="footer-grid">
+
+        <div class="footer-brand">
+          <h2>Hil Tunaj GmbH</h2>
+          <p>Gipser · Fassaden · Innenausbau</p>
+          <p class="footer-desc">
+            Handwerksbetrieb in Hölstein, Kanton Basel-Landschaft.
+            Sorgfältige Ausführung von Gipser-, Fassaden- und Innenausbauarbeiten
+            in der Region Nordwestschweiz.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="#hero">Startseite</a></li>
+            <li><a href="#ueber">Über uns</a></li>
+            <li><a href="#leistungen">Leistungen</a></li>
+            <li><a href="#referenzen">Referenzen</a></li>
+            <li><a href="#flyer">Flyer</a></li>
+            <li><a href="#kontakt">Kontakt</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Kontakt</h4>
+          <address>
+            Dammstrasse 12A<br>
+            4434 Hölstein<br>
+            Schweiz<br><br>
+            <a href="tel:+41619230000">+41 61 923 00 00</a><br>
+            <a href="mailto:info@hiltunaj.ch">info@hiltunaj.ch</a>
+          </address>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2024 Hil Tunaj GmbH · Alle Rechte vorbehalten</span>
+        <span>Hölstein, Schweiz</span>
+      </div>
+
+    </div>
+  </footer>
+
+
+  <!-- ============================================================
+       JAVASCRIPT
+  ============================================================ -->
+  <script>
+    'use strict';
+
+    /* ----- Sticky nav shadow on scroll ----- */
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 10);
+    }, { passive: true });
+
+
+    /* ----- Active nav link on scroll ----- */
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+
+    const observerOpts = { rootMargin: '-40% 0px -55% 0px' };
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.getAttribute('id');
+          navLinks.forEach(link => {
+            link.classList.toggle(
+              'active',
+              link.getAttribute('href') === `#${id}`
+            );
+          });
+        }
+      });
+    }, observerOpts);
+
+    sections.forEach(s => sectionObserver.observe(s));
+
+
+    /* ----- Mobile menu toggle ----- */
+    const hamburger    = document.getElementById('hamburger');
+    const mobileMenu   = document.getElementById('mobileMenu');
+
+    hamburger.addEventListener('click', () => {
+      const open = hamburger.classList.toggle('open');
+      mobileMenu.classList.toggle('open', open);
+      hamburger.setAttribute('aria-expanded', open);
+    });
+
+    function closeMobile() {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+    }
+
+    /* Close mobile menu when clicking outside */
+    document.addEventListener('click', (e) => {
+      if (!nav.contains(e.target) && !mobileMenu.contains(e.target)) {
+        closeMobile();
+      }
+    });
+
+
+    /* ----- Contact form (frontend-only demo) ----- */
+    const form        = document.getElementById('contactForm');
+    const formSuccess = document.getElementById('formSuccess');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const name     = form.querySelector('#name').value.trim();
+      const email    = form.querySelector('#email').value.trim();
+      const nachricht = form.querySelector('#nachricht').value.trim();
+
+      if (!name || !email || !nachricht) {
+        // Simple inline validation — highlight empty required fields
+        form.querySelectorAll('[required]').forEach(field => {
+          field.style.borderColor = field.value.trim() ? '' : '#C0392B';
+        });
+        return;
+      }
+
+      // Reset border colors
+      form.querySelectorAll('[required]').forEach(f => f.style.borderColor = '');
+
+ 
+      // Show success message (replace with actual backend submission)
+      formSuccess.style.display = 'block';
+      form.reset();
+
+      // Hide success after 6 seconds
+      setTimeout(() => { formSuccess.style.display = 'none'; }, 6000);
+    });
+
+    /* Reset red borders on input */
+    form.querySelectorAll('input, textarea').forEach(field => {
+      field.addEventListener('input', () => {
+        field.style.borderColor = '';
+      });
+    });
+
+  </script>
+
+</body>
+</html>
